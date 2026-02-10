@@ -19,7 +19,7 @@ y proporciona validación automática de XML con manejo de declaraciones faltant
 REQUISITOS PREVIOS
 ================================================================================
 - Java 1.8
-- Maven 3.8.9 o superior (incluido Maven Wrapper en el proyecto)
+- Maven 3.9.9
 - Navegador web moderno (Chrome, Firefox, Safari, Edge)
 - Sistema operativo: macOS, Linux o Windows
 
