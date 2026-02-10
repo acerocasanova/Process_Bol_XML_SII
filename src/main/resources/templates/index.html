@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Carga de Archivos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        input[type="file"]:hover {
+            border-color: #0066cc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .file-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .file-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .file-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .file-content {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: white;
+            border-left: 4px solid #667eea;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .boletas-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .boletas-table thead {
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: white;
+        }
+
+        .boletas-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .boletas-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        .boletas-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .boletas-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .download-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .download-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .download-btn.txt {
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: white;
+        }
+
+        .download-btn.csv {
+            background: linear-gradient(135deg, #00cc66 0%, #00ff99 100%);
+            color: white;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.4);
+        }
+
+        .download-btn.csv:hover {
+            box-shadow: 0 5px 15px rgba(0, 204, 102, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carga tu XML Aqui!</h1>
+        <p class="subtitle">Sube tu XML para procesarlo</p>
+
+        <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Selecciona tu xml:</label>
+                <input type="file" id="file" name="file" required accept=".txt,.xml">
+            </div>
+            <button type="submit">Subir Archivo</button>
+        </form>
+
+        <div th:if="${message}" class="message" th:classappend="${message.contains('exitosamente') ? 'success' : 'error'}">
+            <th:block th:text="${message}"></th:block>
+        </div>
+
+        <div th:if="${xmlMessage != null and xmlMessage.size() > 0}" class="file-info show">
+            <h3>Boletas Extraídas del XML</h3>
+            <table class="boletas-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Razón Social</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="boleta, stat : ${xmlMessage}">
+                        <td th:text="${stat.count}"></td>
+                        <td th:text="${boleta.razonSocial}"></td>
+                        <td th:text="${boleta.nombre}"></td>
+                        <td th:text="${boleta.email}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(boleta.total, 1, 2)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="download-buttons">
+                <a href="/descargar/txt" class="download-btn txt">Descargar TXT</a>
+                <a href="/descargar/csv" class="download-btn csv">Descargar CSV</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

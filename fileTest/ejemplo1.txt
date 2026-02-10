@@ -1,0 +1,50 @@
+<boletas>
+    <boleta>
+        <emisor>
+        </emisor>
+        <receptor>
+            <razonSocial>Sovos</razonSocial>
+            <nombre>Soledad Contreras</nombre>
+            <email>casanova.max@gmail.com</email>
+        </receptor>
+        <detalle>
+            <item>
+                <producto>producto 1</producto>
+                <cantidad>10</cantidad>
+                <precio>125</precio>
+            </item>
+            <item>
+                <producto>producto 2</producto>
+                <cantidad>20</cantidad>
+                <precio>250</precio>
+            </item>
+        </detalle>
+        <descuento>
+            <monto>10</monto>
+        </descuento>
+    </boleta>
+    <boleta>
+        <emisor>
+        </emisor>
+        <receptor>
+            <razonSocial>Postulante al trabajo </razonSocial>
+            <nombre>Maximiliano Casanova</nombre>
+            <email>casanova.max@gmail.com</email>
+        </receptor>
+        <detalle>
+            <item>
+                <producto>producto 1</producto>
+                <cantidad>10</cantidad>
+                <precio>125</precio>
+            </item>
+            <item>
+                <producto>producto 2</producto>
+                <cantidad>100</cantidad>
+                <precio>250</precio>
+            </item>
+        </detalle>
+        <descuento>
+            <monto>46</monto>
+        </descuento>
+    </boleta>
+</boletas>
