@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<boletas>
     <boleta>
         <emisor>
         </emisor>
@@ -48,4 +47,3 @@
             <monto>46</monto>
         </descuento>
     </boleta>
-</boletas>
