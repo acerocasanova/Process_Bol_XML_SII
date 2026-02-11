@@ -34,15 +34,34 @@ public class XmlReaderService {
             // Limpiar espacios en blanco antes y después
             String cleanedContent = rawContent.trim();
 
-            // Agregar declaración XML si no la tiene
-            if (!cleanedContent.startsWith("<?xml")) {
-                logger.warn("El archivo no contiene encabezado XML. Agregando...");
-                cleanedContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + cleanedContent;
+            // Separar declaración XML (si existe) y cuerpo
+            String declaration = "";
+            String body = cleanedContent;
+            if (cleanedContent.startsWith("<?xml")) {
+                int idx = cleanedContent.indexOf("?>");
+                if (idx != -1) {
+                    declaration = cleanedContent.substring(0, idx + 2);
+                    body = cleanedContent.substring(idx + 2).trim();
+                }
+            } else {
+                declaration = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+                body = cleanedContent;
             }
 
-            // Crear un temporal con contenido limpio
+            // Si no hay tag raíz <boletas> pero sí hay elementos <boleta>, envolverlos
+            String bodyTrim = body.trim();
+            String finalContent;
+            if (bodyTrim.startsWith("<boletas")) {
+                finalContent = declaration + "\n" + bodyTrim;
+            } else if (bodyTrim.startsWith("<boleta") || bodyTrim.contains("<boleta")) {
+                finalContent = declaration + "\n<boletas>\n" + bodyTrim + "\n</boletas>";
+            } else {
+                finalContent = declaration + "\n" + bodyTrim;
+            }
+
+            // Crear un temporal con contenido limpio (posiblemente envuelto)
             java.nio.file.Path tempPath = java.nio.file.Files.createTempFile("xml_temp", ".xml");
-            java.nio.file.Files.write(tempPath, cleanedContent.getBytes());
+            java.nio.file.Files.write(tempPath, finalContent.getBytes());
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
