@@ -5,7 +5,7 @@
 
 DESCRIPCIÓN
 ================================================================================
-TestSovos es una aplicación web desarrollada con Spring Boot que permite:
+Es una aplicación web desarrollada con Spring Boot que permite:
 - Cargar archivos XML con información de boletas
 - Extrae automáticamente datos de las boletas (razón social, nombre, email, total)
 - Genera reportes en formato TXT y CSV
