@@ -214,4 +214,3 @@ PASO 3: Ver resultados
 
 PASO 4: Descargar reportes
    - Botón "Descargar TXT" Descarga en formato texto
-   - Botón "Descargar CSV" Descarga en formato CSV
