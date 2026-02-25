@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boletas>
+    <boleta>
+        <receptor>
+            <razonSocial>Empresa Test</razonSocial>
+            <nombre>Juan García</nombre>
+            <email>juan@test.com</email>
+        </receptor>
+        <detalle>
+            <item>
+                <producto>Producto A</producto>
+                <cantidad>10</cantidad>
+                <precio>100</precio>
+            </item>
+        </detalle>
+        <descuento>
+            <monto>50</monto>
+        </descuento>
+    </boleta>
+</boletas>

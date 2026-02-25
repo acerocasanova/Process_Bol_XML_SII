@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <boleta>
+        <emisor>
+        </emisor>
+        <receptor>
+            <razonSocial>Sovos</razonSocial>
+            <nombre>Soledad Contreras</nombre>
+            <email>casanova.max@gmail.com</email>
+        </receptor>
+        <detalle>
+            <item>
+                <producto>producto 1</producto>
+                <cantidad>1</cantidad>
+                <precio>125</precio>
+            </item>
+            <item>
+                <producto>producto 2</producto>
+                <cantidad>1</cantidad>
+                <precio>250</precio>
+            </item>
+        </detalle>
+        <descuento>
+            <monto>10</monto>
+        </descuento>
+    </boleta>
+    
